@@ -1,15 +1,17 @@
 package items;
 
+import exceptions.InvalidIndexException;
+
 public class Magazine extends Item {
     private int edition;
     private String mainArticleTitle;
 
-    Magazine() {
+    public Magazine() {
         super();
         this.edition = 0;
         this.mainArticleTitle = "";
     }
-    Magazine(String name, String description, int id, int edition, String mainArticleTitle) {
+    public Magazine(String name, String description, int id, int edition, String mainArticleTitle) {
         super(name, description, id);
         this.edition = edition;
         this.mainArticleTitle = mainArticleTitle;
@@ -23,7 +25,7 @@ public class Magazine extends Item {
             this.edition = edition;
         }
         else {
-            // TODO: throw exception
+            throw new InvalidIndexException("Invalid Edition, must be greater than 0");
         }
     }
 

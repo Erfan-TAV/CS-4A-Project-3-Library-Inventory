@@ -1,26 +1,22 @@
+import exceptions.InvalidCompartmentException;
 import exceptions.InvalidLocationException;
 import items.Item;
-
 import java.util.ArrayList;
 
 public class LibraryStorage {
     private final ArrayList<Item[]> shelves;
     private final int COMPARTMENTS = 15;
-//    private ArrayList<Item> checkedoutItems;
 
     public LibraryStorage() {
         this.shelves = new ArrayList<>();
-//        this.checkedoutItems = new ArrayList<>();
     }
 
     private boolean isValidLocation(int shelf, int compartment) {
         if (shelf < 0 || shelf >= shelves.size()) {
-            // TODO: Throw shelf doesn't exist
-            return false;
+            throw new InvalidLocationException("Invalid Shelf Location");
         }
         if (compartment < 0 || compartment >= COMPARTMENTS) {
-            // TODO: Throw compartment doesn't exist
-            return false;
+            throw new InvalidLocationException("Invalid Compartment Location");
         }
         return true;
     }
@@ -39,41 +35,68 @@ public class LibraryStorage {
     }
 
     public void addItem(int shelfIndex, int compartment, Item item) {
-        if (isValidLocation(shelfIndex, compartment)) {
-            if (shelves.get(shelfIndex)[compartment] == null) {
-                shelves.get(shelfIndex)[compartment] = item;
+        try {
+            if (isValidLocation(shelfIndex, compartment)) {
+                if (shelves.get(shelfIndex)[compartment] == null) {
+                    shelves.get(shelfIndex)[compartment] = item;
+                }
+                else {
+                    throw new InvalidLocationException("Compartment already filled");
+                }
             }
-            else {
-                // TODO: throw compartment not empty
-            }
+        }
+        catch (InvalidCompartmentException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
     public void deleteItem(int shelfIndex, int compartment) {
-        if (isValidLocation(shelfIndex, compartment)) {
-            if (shelves.get(shelfIndex)[compartment] != null) {
-                shelves.get(shelfIndex)[compartment] = null;
+        try {
+            if (isValidLocation(shelfIndex, compartment)) {
+                if (shelves.get(shelfIndex)[compartment] != null) {
+                    shelves.get(shelfIndex)[compartment] = null;
+                }
+                else {
+                    throw new InvalidCompartmentException("Compartment already empty");
+                }
             }
-            else {
-                // TODO: throw compartment empty
-            }
+        }  catch (InvalidLocationException e) {
+            System.out.println("Error: " + e.getMessage());
         }
+
     }
 
     public void swapItem(int shelf1, int compartment1,
                          int shelf2, int compartment2) {
         Item temp;
-        if(isValidLocation(shelf1, compartment1) && isValidLocation(shelf2, compartment2)) {
-            temp = shelves.get(shelf1)[compartment1];
-            shelves.get(shelf1)[compartment1] = shelves.get(shelf2)[compartment2];
-            shelves.get(shelf2)[compartment2] = temp;
+        try {
+            if(isValidLocation(shelf1, compartment1) && isValidLocation(shelf2, compartment2)) {
+                temp = shelves.get(shelf1)[compartment1];
+                shelves.get(shelf1)[compartment1] = shelves.get(shelf2)[compartment2];
+                shelves.get(shelf2)[compartment2] = temp;
+            }
+        } catch (InvalidLocationException e) {
+            System.out.println("Error: " + e.getMessage());
         }
+
     }
 
-    public void checkoutItem(int shelf, int compartment, String borrowerName) {
-        shelves.get(shelf)[compartment].markCheckedOut(borrowerName, 14);
+    public void checkoutItem(int shelf, int compartment, String borrowerName, int borrowPeriod) {
+        try {
+            if (isValidLocation(shelf, compartment)) {
+                shelves.get(shelf)[compartment].markCheckedOut(borrowerName, borrowPeriod);
+            }
+        } catch (InvalidLocationException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
     public void returnItem(int shelf, int compartment) {
-        shelves.get(shelf)[compartment].markReturned();
+        try {
+            if (isValidLocation(shelf, compartment)) {
+                shelves.get(shelf)[compartment].markReturned();
+            }
+        } catch (InvalidLocationException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     public void printItemsInStorage() {
@@ -95,7 +118,6 @@ public class LibraryStorage {
             System.out.println("  └───────────────────────────────");
         }
     }
-
     public void printCheckedOutItems() {
         System.out.println("CHECKED OUT ITEMS");
         System.out.println("--------------------------");

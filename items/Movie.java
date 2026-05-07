@@ -5,13 +5,13 @@ public class Movie extends Item{
     private String director;
     private String[] mainActors;
 
-    Movie() {
+    public Movie() {
         super();
         this.title = "";
         this.director = "";
         this.mainActors = new String[0];
     }
-    Movie(String name, String description, int id,  String title, String director, String[] mainActors) {
+    public Movie(String name, String description, int id,  String title, String director, String[] mainActors) {
         super(name, description, id);
         this.title = title;
         this.director = director;

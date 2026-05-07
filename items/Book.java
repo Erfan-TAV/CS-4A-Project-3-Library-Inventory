@@ -7,13 +7,13 @@ public class Book extends Item {
     private String author;
     private LocalDate copyrightDate;
 
-    Book(String name, String description, int id, String title, String author, LocalDate copyrightDate) {
+    public Book(String name, String description, int id, String title, String author, LocalDate copyrightDate) {
         super(name, description, id);
         this.title = title;
         this.author = author;
         this.copyrightDate = copyrightDate;
     }
-    Book() {
+    public Book() {
         super();
         this.title = "";
         this.author = "";
