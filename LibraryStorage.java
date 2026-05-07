@@ -1,3 +1,4 @@
+import exceptions.InvalidLocationException;
 import items.Item;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class LibraryStorage {
         if (shelfIndex >= 0 && shelfIndex < shelves.size()) {
             shelves.remove(shelfIndex);
         } else {
-            // TODO: throw exception
+            throw new InvalidLocationException("Shelf doesnt exist");
         }
 
     }
@@ -75,12 +76,9 @@ public class LibraryStorage {
         shelves.get(shelf)[compartment].markReturned();
     }
 
-//    public void printItemsStorage() {
-//
-//    }
-
     public void printItemsInStorage() {
-        System.out.println("=== ITEMS CURRENTLY IN STORAGE ===");
+        System.out.println("ITEMS CURRENTLY IN STORAGE");
+        System.out.println("--------------------------");
         for (int i = 0; i < shelves.size(); i++) {
             System.out.println("Shelf #" + i);
             Item[] currentShelf = shelves.get(i);
@@ -90,17 +88,17 @@ public class LibraryStorage {
 
                 // Only print if the compartment has an item and it's NOT checked out
                 if (item != null && !item.isCheckedOut()) {
-                    System.out.println("  │");
-                    System.out.println("  ├─ [Comp " + j + "] ──── " + item.getName() + " (ID: " + item.getId() + ")");
+                    System.out.println("  ├─ [Comp " + j + "] " + item.getName() + " (ID: " + item.getId() + ")");
                     System.out.println("  │    └─ " + item.getDescription());
                 }
             }
-            System.out.println("  ┴───────────────────────────────");
+            System.out.println("  └───────────────────────────────");
         }
     }
 
     public void printCheckedOutItems() {
-        System.out.println("=== CHECKED OUT ITEMS ===");
+        System.out.println("CHECKED OUT ITEMS");
+        System.out.println("--------------------------");
         boolean anyFound = false;
 
         for (int i = 0; i < shelves.size(); i++) {
@@ -111,8 +109,7 @@ public class LibraryStorage {
 
                 if (item != null && item.isCheckedOut()) {
                     anyFound = true;
-                    System.out.println("Shelf [" + i + "] ──── Comp [" + j + "]");
-                    System.out.println("  │");
+                    System.out.println("Shelf " + i + ", Compartment " + j);
                     System.out.println("  ├─ Item: " + item.getName());
                     System.out.println("  ├─ Borrower: " + item.getBorrowerName());
                     System.out.println("  └─ Due Date: " + item.getDueDate());

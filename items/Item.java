@@ -12,14 +12,14 @@ public class Item {
     private String borrowerName;
     private LocalDate dueDate;
 
-    Item(String name, String description, int id) {
+    public Item(String name, String description, int id) {
         this.name = name;
         this.description = description;
         this.id = id;
         this.checkedOut = false;
         this.borrowerName = "";
     }
-    Item() {
+    public Item() {
         this.name = "";
         this.description = "";
         this.id = 0;
@@ -78,5 +78,12 @@ public class Item {
     }
     public void setBorrowerName(String borrowerName) {
         this.borrowerName = borrowerName;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+    public void setDueDate(int year, int month, int day) {
+        this.dueDate = LocalDate.of(year, month, day);
     }
 }
