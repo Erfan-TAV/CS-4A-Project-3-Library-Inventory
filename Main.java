@@ -134,10 +134,10 @@ public class Main {
         library.returnItem(0,1);
         library.returnItem(2,1);
         library.printCheckedOutItems();
-        System.out.println("done");
+        System.out.println("done\n");
 
         System.out.println("Testing error handling");
-        library.swapItem(1,0, 1, 3);
+        library.swapItem(1,4, 1, 3);
 
         library.checkoutItem(0,3, "Erfan", 14);
         library.returnItem(0,3);
@@ -145,6 +145,6 @@ public class Main {
         library.deleteItem(0,3);
         library.addItem(0,30,new Book());
         library.deleteShelf(4);
-
+        System.out.println("done");
     }
 }
