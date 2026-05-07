@@ -2,18 +2,18 @@ package items;
 
 import java.time.LocalDate;
 
-public class Books extends Item {
+public class Book extends Item {
     private String title;
     private String author;
     private LocalDate copyrightDate;
 
-    Books(String name, String description, int id, String title, String author, LocalDate copyrightDate) {
+    Book(String name, String description, int id, String title, String author, LocalDate copyrightDate) {
         super(name, description, id);
         this.title = title;
         this.author = author;
         this.copyrightDate = copyrightDate;
     }
-    Books() {
+    Book() {
         super();
         this.title = "";
         this.author = "";
