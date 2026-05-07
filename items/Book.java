@@ -41,4 +41,12 @@ public class Book extends Item {
     public void setCopyrightDate(int year, int month, int day) {
         this.copyrightDate = LocalDate.of(year, month, day);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "\nTitle: " + title +
+                "\nAuthor: " + author +
+                "\nCopyright: " + copyrightDate;
+    }
 }

@@ -33,4 +33,11 @@ public class Magazine extends Item {
     public void setMainArticleTitle(String mainArticleTitle) {
         this.mainArticleTitle = mainArticleTitle;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "\nEdition: " + edition +
+                "\nMain Article Title: " + mainArticleTitle;
+    }
 }

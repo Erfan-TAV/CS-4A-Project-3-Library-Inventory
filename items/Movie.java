@@ -38,4 +38,13 @@ public class Movie extends Item{
     public void setMainActors(String[] mainActors) {
         this.mainActors = mainActors;
     }
+
+    @Override
+    public String toString() {
+        String actorsList = String.join(", ", mainActors);
+        return super.toString() +
+                "\nTitle: " + title +
+                "\nDirector: " + director +
+                "\nMain Actors: " + actorsList;
+    }
 }
